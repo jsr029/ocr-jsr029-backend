@@ -15,8 +15,9 @@
     "images": {
     "sizes": [256, 640, 1080, 2048, 3840],
     "localPatterns": [{
-      "pathname": "^/assets/.*$",
-      "search": ""
-    }]
-  }
+        "pathname": "^/assets/.*$",
+        "search": ""
+        }]
+    },
+    "public": true
   }
