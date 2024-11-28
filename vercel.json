@@ -8,8 +8,9 @@
     ],
     "routes": [
       {
-      "src": "/assets/(.*)", 
-      "dest": "/assets/folder/$1" 
-      }    ]
-
+        "src": "/(.*)",
+        "dest": "app.js"
+      },
+       { "src": "/assets/(.*)", "dest": "/assets/folder/$1" }
+    ]
 }
