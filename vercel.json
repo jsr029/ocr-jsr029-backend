@@ -17,8 +17,8 @@
         },
         "rewrites": [
           {
-            "source": "/projects/<SideProjectName>",
-            "destination": "<SideProjectProdUrl>"
+            "src": "/projects/<SideProjectName>",
+            "dest": "<SideProjectProdUrl>"
           }
         ]
 
