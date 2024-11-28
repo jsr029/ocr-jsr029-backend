@@ -12,11 +12,10 @@
         "dest": "app.js"
       }
     ],
-   "images": {
-    "sizes": [256, 640, 1450, 1080, 2048, 3840],
-    "localPatterns": [{
-      "pathname": "^/assets/.*$",
-      "search": ""
-    }]
-   }
+    "redirects": [
+      {
+        "source": "/assets",
+        "destination": "https://ocr-jsr029-backend.vercel.app/assets"
+      }
+    ]
 }
