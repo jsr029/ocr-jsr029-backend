@@ -3,19 +3,19 @@
     "builds": [
       {
         "src": "app.js",
-        "use": "@vercel/node"
+        "use": "@vercel/node",
+        "methods": ["GET", "OPTIONS"],
+        "headers": {
+          "Access-Control-Allow-Methods": "GET",
+          "Access-Control-Allow-Headers": "Content-Type"
+      }
+
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
         "dest": "app.js"
-      }
-    ],
-    "redirects": [
-      {
-        "source": "/assets",
-        "destination": "https://ocr-jsr029-backend.vercel.app/assets"
       }
     ]
 }
