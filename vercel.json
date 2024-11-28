@@ -10,7 +10,12 @@
       {
         "src": "/(.*)",
         "dest": "app.js"
-      },
-       { "src": "/assets/(.*)", "dest": "/assets/folder/$1" }
+      }
+    ],
+    "rewrites": [
+      { 
+        "source": "/assets/:path*", 
+        "destination": "/assets/:path*" 
+      }
     ]
 }
