@@ -12,6 +12,8 @@
       "dest": "app.js"
     }
   ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { 
       "source": "/assets", 
