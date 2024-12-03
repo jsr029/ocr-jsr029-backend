@@ -16,8 +16,8 @@
   "trailingSlash": false,
   "rewrites": [
     { 
-      "source": "/assets/:path", 
-      "destination": "https://ocr-jsr029-frontend2.vercel.app/assets" 
+      "source": "/assets", 
+      "destination": "https://ocr-jsr029-backend.vercel.app/assets" 
     }
   ]
 }
