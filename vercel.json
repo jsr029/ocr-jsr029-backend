@@ -17,7 +17,7 @@
   "rewrites": [
     { 
       "source": "/assets", 
-      "destination": "https://ocr-jsr029-backend.vercel.app/assets" 
+      "destination": "https://ocr-jsr029-frontend2.vercel.app/assets" 
     }
   ]
 }
