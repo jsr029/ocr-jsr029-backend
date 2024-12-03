@@ -19,6 +19,7 @@
       "source": "/assets", 
       "destination": "https://ocr-jsr029-backend.vercel.app/assets" 
     }
-  ]
+  ], 
+  "static": { "directory": "assets"}
 }
 
