@@ -1,23 +1,33 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const authMiddleware = (req, res, next) => {
-    const authHeader = req.header('Authorization');
-    if (!authHeader) return res.status(401).json({ error: 'No token, authorization denied' });
-
-    const token = authHeader.split(' ')[1]; // Extract the token part
-    if (!token) return res.status(401).json({ error: 'Token format is invalid' });
-
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-        next();
-    } catch (err) {
-        res.status(401).json({ error: 'Token is not valid' });
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.userId;
+        const role = decodedToken.role;
+        req.auth = {
+            userId: userId,
+            role: role
+        };
+        next(); // Call the next middleware function
+    } catch (error) {
+        return res.status(401).json({ message: "Vous n'êtes pas autorisé." }); // Correct message
     }
 };
 
 const roleMiddleware = (roles) => (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+    const role = decodedToken.role;
+    req.auth = {
+        userId: userId,
+        role: role
+    };
+if (!roles.includes(role)) {
         return res.status(403).json({ error: 'Access denied' });
     }
     next();

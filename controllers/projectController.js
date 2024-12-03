@@ -5,7 +5,7 @@ const uuid = require('uuid').v4;
 
 exports.createProject = async (req, res) => {
     const { title, appUrl, techno, description } = req.body;
-    const userId = req.user.userId;
+    const userId = req.auth.userId;
     const image = req.file.path;
 
     try {
@@ -44,14 +44,18 @@ exports.updateProject = async (req, res) => {
         const project = await Project.findById(req.params.id);
         if (!project) return res.status(404).json({ error: 'Project not found' });
 
-        if (image) {
+       /* if (image) {
             // Delete the old image if exists
             if (project.image) {
+                if(path.join(__dirname, '..', project.image)){
                 fs.unlinkSync(path.join(__dirname, '..', project.image));
+                }else{
+                    project.image = null
+                }
             }
             project.image = image;
-        }
-
+        }*/
+        project.image = image || project.image;
         project.title = title || project.title;
         project.appUrl = appUrl || project.appUrl;
         project.techno = techno || project.techno;
@@ -67,11 +71,20 @@ exports.updateProject = async (req, res) => {
 exports.deleteProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
-        if (project.image) {
-            fs.unlinkSync(path.join(__dirname, '..', project.image));
+        if (project) {
+            if (project.image) {
+                const imagePath = path.join(__dirname, '..', project.image);
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                } else {
+                    console.log('Image file does not exist:', imagePath);
+                }
+            }
+            await Project.findByIdAndDelete(req.params.id);
+            res.json({ message: 'Project deleted successfully' });
+        } else {
+            res.status(404).json({ error: 'Project not found' });
         }
-        await Project.findByIdAndDelete(req.params.id);
-        res.json({ message: 'Project deleted successfully' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

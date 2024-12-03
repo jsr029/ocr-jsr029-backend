@@ -1,6 +1,8 @@
 const express = require('express');
 const multer = require('multer');
 const uuid = require('uuid').v4;
+const fs = require('fs');
+const path = require('path');
 const {
     createProject,
     getAllProjects,
@@ -14,7 +16,14 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'assets/');
+        const date = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+        const dir = path.join('assets', date); // Create the subfolder path
+ // Check if directory exists, if not, create it 
+ if (!fs.existsSync(dir))
+     { 
+        fs.mkdirSync(dir, { recursive: true }); 
+    }
+        cb(null, dir);
     },
     filename: (req, file, cb) => {
         const fileExtension = file.originalname.split('.').pop();
@@ -27,7 +36,7 @@ const upload = multer({ storage });
 router.post('/create', authMiddleware, upload.single('image'), createProject);
 router.get('/', getAllProjects);
 router.get('/:id', getProjectById);
-router.put('/:id', authMiddleware, roleMiddleware(['superAdmin', 'admin', 'user', 'moderator']), upload.single('image'), updateProject);
-router.delete('/:id', authMiddleware, roleMiddleware(['superAdmin']), deleteProject);
+router.patch('/:id', authMiddleware, roleMiddleware(['superAdmin', 'admin', 'user', 'moderator']), upload.single('image'), updateProject);
+router.delete('/:id', authMiddleware, roleMiddleware(['superAdmin', 'admin']), deleteProject);
 
 module.exports = router;

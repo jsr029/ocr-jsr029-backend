@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -18,13 +19,14 @@ app.use((req,res,next) => {
     next();
 });
 
-app.use('/assets', express.static('assets'));
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error(err));
 
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
 app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
 
-app.listen(5000, () => console.log('Server running on port 5000'));
+app.listen(5001, () => console.log('Server running on port 5001'));
