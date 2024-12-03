@@ -15,11 +15,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { 
-      "source": "/assets", 
-      "destination": "https://ocr-jsr029-backend.vercel.app/assets" 
-    }
-  ], 
+      {"source": "/(.*)", "destination": "/"}
+  ],
   "static": { "directory": "assets"}
 }
 
