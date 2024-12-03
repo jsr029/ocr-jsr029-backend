@@ -1,21 +1,25 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "./app.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "app.js"
-      }
-    ],
-    "rewrites": [
-      { 
-        "source": "/assets/:path*", 
-        "destination": "/assets/:path*" 
-      }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "./app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.js"
+    }
+  ],
+  "rewrites": [
+    { 
+      "source": "/assets/:path*", 
+      "destination": "/assets/:path*" 
+    }
+  ],
+  "static": {
+    "directory": "public",  
+    "publicPath": "/assets" 
+  }
 }
