@@ -19,7 +19,10 @@ exports.createProject = async (req, res) => {
 
 exports.getAllProjects = async (req, res) => {
     try {
-        const projects = await Project.find().populate('userId', 'email');
+        const projects = await Project.find().populate('userId', 'email',
+            {
+              access: "public",
+            });
         res.json(projects);
     } catch (err) {
         res.status(500).json({ error: err.message });
