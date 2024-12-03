@@ -19,7 +19,7 @@
     }
   ],
   "static": {
-    "directory": "public",  
+    "directory": "assets",  
     "publicPath": "/assets" 
   }
 }
