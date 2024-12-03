@@ -17,10 +17,6 @@
       "source": "/assets/:path*", 
       "destination": "/assets/:path*" 
     }
-  ],
-  "static": {
-    "directory": "public",  
-    "publicPath": "/assets" 
-    
-  }
+  ]
 }
+
